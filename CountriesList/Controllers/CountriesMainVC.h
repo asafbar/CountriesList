@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CountriesMainVC : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface CountriesMainVC : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 

@@ -16,6 +16,7 @@
 
 @interface CountriesMainVC ()
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property(nonatomic, strong) NSArray *searchResults;
 @end
 
 @implementation CountriesMainVC
@@ -65,6 +66,11 @@ static NSString *cellIdentifier = @"Country Cell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
+    if(!(tableView == self.tableView)){
+        return self.searchResults.count;
+    }
+    
+    
     return kConfig.dataHolder.countries.count;
 }
 
@@ -72,7 +78,14 @@ static NSString *cellIdentifier = @"Country Cell";
     
     CountryCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
-    Country *country = [kConfig.dataHolder.countries objectAtIndex:indexPath.row];
+    Country *country;
+    if(!(tableView == self.tableView)){
+       country  = [self.searchResults objectAtIndex:indexPath.row];
+    }else{
+        country  = [kConfig.dataHolder.countries objectAtIndex:indexPath.row];
+    }
+    
+    
     
     // use cell setters
     cell.name = country.name;
@@ -91,7 +104,15 @@ static NSString *cellIdentifier = @"Country Cell";
 // Open selected cell
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    Country *country = [kConfig.dataHolder.countries objectAtIndex:indexPath.row];
+    Country *country;
+    if(!(tableView == self.tableView)){
+         country = [self.searchResults objectAtIndex:indexPath.row];
+    }else{
+        country  = [kConfig.dataHolder.countries objectAtIndex:indexPath.row];
+    }
+    
+    
+    
     
     NeighborsVC *neighborsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Neighbors VC"];
     
@@ -99,6 +120,36 @@ static NSString *cellIdentifier = @"Country Cell";
     
     [self.navigationController pushViewController:neighborsVC animated:YES];
     
+}
+
+#pragma mark - Search on table
+
+//- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
+    
+    NSLog(@"%@",searchBar.text);
+    
+    return YES;
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    NSLog(@"%@",searchBar.text);
+    
+    [self filterContentForSearchText:searchBar.text];
+}
+
+
+- (void)filterContentForSearchText:(NSString*)searchText
+{
+
+    
+    NSPredicate *resultPredicate = [NSPredicate
+                                    predicateWithFormat:@"name CONTAINS %@",
+                                    searchText];
+    
+    self.searchResults = [kConfig.dataHolder.countries filteredArrayUsingPredicate:resultPredicate];
+    
+    [self.tableView reloadData];
 }
 
 @end

@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IuR-0p-ab1">
-                                <rect key="frame" x="16" y="82" width="343" height="565"/>
+                                <rect key="frame" x="16" y="109" width="343" height="538"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -38,13 +38,23 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="zjL-a7-ozq">
                                 <rect key="frame" x="178" y="323" width="20" height="20"/>
                             </activityIndicatorView>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="VqG-Bf-Vkd">
+                                <rect key="frame" x="16" y="65" width="343" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="sdv-Yt-xL0"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="VqG-Bf-Vkd" firstAttribute="leading" secondItem="IuR-0p-ab1" secondAttribute="leading" id="8VR-pG-2QF"/>
                             <constraint firstItem="zjL-a7-ozq" firstAttribute="centerX" secondItem="IuR-0p-ab1" secondAttribute="centerX" id="Byc-ZT-abc"/>
                             <constraint firstItem="IuR-0p-ab1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="DWj-ew-9eZ"/>
                             <constraint firstItem="zjL-a7-ozq" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Qlu-5Z-520"/>
-                            <constraint firstItem="IuR-0p-ab1" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="18" id="R3R-T8-gYB"/>
+                            <constraint firstItem="IuR-0p-ab1" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="45" id="R3R-T8-gYB"/>
+                            <constraint firstItem="VqG-Bf-Vkd" firstAttribute="bottom" secondItem="IuR-0p-ab1" secondAttribute="top" id="aQy-Yw-W9s"/>
+                            <constraint firstItem="VqG-Bf-Vkd" firstAttribute="trailing" secondItem="IuR-0p-ab1" secondAttribute="trailing" id="evq-uf-3ZF"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="IuR-0p-ab1" secondAttribute="bottom" constant="20" id="tfy-vi-bRX"/>
                             <constraint firstItem="IuR-0p-ab1" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="twO-Ta-Hyf"/>
                         </constraints>
@@ -52,10 +62,20 @@
                     <navigationItem key="navigationItem" title="Countries" id="lOZ-4i-zXg"/>
                     <connections>
                         <outlet property="activityIndicator" destination="zjL-a7-ozq" id="68R-Q4-wjv"/>
+                        <outlet property="searchDisplayController" destination="BcS-9v-nDd" id="0zd-zV-oQr"/>
                         <outlet property="tableView" destination="IuR-0p-ab1" id="ZJy-FX-umf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="BcS-9v-nDd">
+                    <connections>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="6An-Fs-Hrh"/>
+                        <outlet property="searchBar" destination="VqG-Bf-Vkd" id="uni-Ou-laS"/>
+                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="riO-Ta-EYg"/>
+                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="HPD-xs-MzL"/>
+                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="xjI-dP-BlV"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1076" y="138.98050974512745"/>
         </scene>
